@@ -23,7 +23,9 @@ data <- data[order(data$Age),]
 data$Length[1:100]
 plot(data, col="purple")
 plot(data$Height, col="purple")
+```
 
+```{r}
 ggplot(data) +
     geom_density(aes(x = Length, fill = Sex), alpha = 0.5) +
     labs(y = "Density", x = "Number of Flowers", fill = "Nitrogen\nConcentration") +
@@ -31,10 +33,4 @@ ggplot(data) +
         values = c("#DB24BC", "#BCDB24", "#24BCDB")) +
     theme_minimal()
 head(data)
-```
-
-
-```{r}
-ggplot(data = data) +
-    geom_freqpoly(aes(x = data$Length), size = 1, bins = 20)
 ```
