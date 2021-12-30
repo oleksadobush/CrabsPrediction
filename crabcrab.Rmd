@@ -5,7 +5,7 @@ output:
     df_print: paged
 ---
 
-### Tem:
+### Team:
 - Alina Muliak
 - Olexiy Hoiev
 - Oleksandra Stasiuk
@@ -17,7 +17,12 @@ library(ggplot2)
 
 ```{r}
 data <- read.csv("./CrabAgePrediction.csv", TRUE)
-data <- data[,-6]
 
+ggplot(data) +
+    geom_density(aes(x = Length, fill = Sex), alpha = 0.5) +
+    labs(y = "Density", x = "Number of Flowers", fill = "Nitrogen\nConcentration") +
+    scale_fill_manual(labels = c("M", "F", "I"),
+        values = c("#DB24BC", "#BCDB24", "#24BCDB")) +
+    theme_minimal()
 head(data)
 ```
