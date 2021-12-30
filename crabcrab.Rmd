@@ -28,7 +28,13 @@ plot(data$Height, col="purple")
 ```{r}
 ggplot(data) +
     geom_density(aes(x = Length, fill = Sex), alpha = 0.5) +
-    labs(y = "Density", x = "Number of Flowers", fill = "Nitrogen\nConcentration") +
+    labs(y = "Density", x = "Length", fill = "Nitrogen\nConcentration") +
+    scale_fill_manual(labels = c("M", "F", "I"),
+        values = c("#DB24BC", "#BCDB24", "#24BCDB")) +
+    theme_minimal()
+ggplot(data) +
+    geom_density(aes(x = Age, fill = Sex), alpha = 0.6) +
+    labs(y = "Density", x = "Age", fill = "Nitrogen\nConcentration") +
     scale_fill_manual(labels = c("M", "F", "I"),
         values = c("#DB24BC", "#BCDB24", "#24BCDB")) +
     theme_minimal()
