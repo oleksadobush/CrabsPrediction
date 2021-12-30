@@ -17,6 +17,14 @@ library(ggplot2)
 
 ```{r}
 data <- read.csv("./CrabAgePrediction.csv", TRUE)
+<<<<<<< Updated upstream
+=======
+data <- data[,-6:-8]
+data <- data[order(data$Age),]
+data$Length[1:100]
+plot(data, col="purple")
+plot(data$Height, col="purple")
+>>>>>>> Stashed changes
 
 ggplot(data) +
     geom_density(aes(x = Length, fill = Sex), alpha = 0.5) +
@@ -25,4 +33,10 @@ ggplot(data) +
         values = c("#DB24BC", "#BCDB24", "#24BCDB")) +
     theme_minimal()
 head(data)
+```
+
+
+```{r}
+ggplot(data = data) +
+    geom_freqpoly(aes(x = data$Length), size = 1, bins = 20)
 ```
