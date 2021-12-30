@@ -1,0 +1,23 @@
+---
+title: "Crab Research Proj"
+output:
+  html_document:
+    df_print: paged
+---
+
+### Tem:
+- Alina Muliak
+- Olexiy Hoiev
+- Oleksandra Stasiuk
+
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+data <- read.csv("./CrabAgePrediction.csv", TRUE)
+data <- data[,-6]
+
+head(data)
+```
