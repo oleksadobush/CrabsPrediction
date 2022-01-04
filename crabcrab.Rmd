@@ -1,5 +1,5 @@
 ---
-title: "Crab Research Proj"
+title: "Crab Research Project"
 output:
   html_document:
     df_print: paged
