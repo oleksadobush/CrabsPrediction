@@ -56,6 +56,31 @@ High $f$-ratio combined with a small $p$-value means that 'some component' most 
 
 
 ```{r}
+# all parameters
 fit <- aov(Age ~ Weight + Diameter + Sex + Length + Height, data=mydata)
+summary(fit)
+```
+Ну типу all attributes have large $f$-ratio combined with veery small $p$-values.
+
+```{r}
+# without height
+fit <- aov(Age ~ Weight + Diameter + Sex + Length, data=mydata)
+summary(fit)
+```
+```{r}
+# without length
+fit <- aov(Age ~ Weight + Diameter + Sex + Height, data=mydata)
+summary(fit)
+```
+
+```{r}
+# without diameter
+fit <- aov(Age ~ Weight + Length + Sex + Height, data=mydata)
+summary(fit)
+```
+
+```{r}
+# without diameter and height
+fit <- aov(Age ~ Weight + Length + Sex, data=mydata)
 summary(fit)
 ```
