@@ -14,6 +14,11 @@ output:
 ```{r}
 library(ggplot2)
 ```
+set the seed to some cool number
+```{r}
+set.seed(125368)
+```
+
 
 ```{r}
 data <- read.csv("./CrabAgePrediction.csv", TRUE)
