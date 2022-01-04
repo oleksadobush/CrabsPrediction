@@ -34,7 +34,9 @@ plot(data$Height, col="purple")
 ```{r}
 # split data in 2 parts : one for building a linear model and one for testing
 data.train <- data.shuffled[1:2000,]
+data.train <- data.train[order(data.train$Age),]
 data.test <- data.shuffled[2001:4000,]
+data.test <- data.test[order(data.test$Age),]
 
 data.train[1:20,]
 data.test[1:20,]
@@ -136,7 +138,8 @@ first, model with all parameters included
 lm.coefficients <- lm.all$coefficients
 
 prediction <- calculate_value(lm.coefficients[1], lm.coefficients[2], lm.coefficients[3], lm.coefficients[4], lm.coefficients[5], lm.coefficients[6], lm.coefficients[7], values = data.test)
-
+plot(sort(prediction))
+lines(data.test$Age, col = "red", lwd = 5)
 compare_to_actual(prediction, data.test, 8, 8)
 ```
 now lets see on the other models
@@ -146,7 +149,8 @@ now lets see on the other models
 lm.coefficients <- lm.no_high$coefficients
 
 prediction <- calculate_value(a = lm.coefficients[1], weight = lm.coefficients[2], diameter = lm.coefficients[3], sexi = lm.coefficients[4], sexm = lm.coefficients[5], length = lm.coefficients[6], values = data.test)
-
+plot(sort(prediction))
+lines(data.test$Age, col = "red", lwd = 5)
 compare_to_actual(prediction, data.test, 8, 8)
 ```
 we can see that the result became a little worse but is still ok
@@ -157,7 +161,8 @@ so we can conclude that height is not that important of a parameter
 lm.coefficients <- lm.no_high$coefficients
 
 prediction <- calculate_value(a = lm.coefficients[1], weight = lm.coefficients[2], diameter = lm.coefficients[3], sexi = lm.coefficients[4], sexm = lm.coefficients[5], height = lm.coefficients[6], values = data.test)
-
+plot(sort(prediction))
+lines(data.test$Age, col = "red", lwd = 5)
 compare_to_actual(prediction, data.test, 8, 8)
 ```
 
@@ -166,7 +171,8 @@ compare_to_actual(prediction, data.test, 8, 8)
 lm.coefficients <- lm.no_diameter$coefficients
 
 prediction <- calculate_value(a = lm.coefficients[1], weight = lm.coefficients[2], sexi = lm.coefficients[3], sexm = lm.coefficients[4], length = lm.coefficients[5], height = lm.coefficients[6], values = data.test)
-
+plot(sort(prediction))
+lines(data.test$Age, col = "red", lwd = 5)
 compare_to_actual(prediction, data.test, 8, 8)
 ```
 from this test we can see that probably diameter is not that important of parameter eather
@@ -176,7 +182,8 @@ from this test we can see that probably diameter is not that important of parame
 lm.coefficients <- lm.no_diameter_height$coefficients
 
 prediction <- calculate_value(a = lm.coefficients[1], weight = lm.coefficients[2], sexi = lm.coefficients[3], sexm = lm.coefficients[4], length = lm.coefficients[5], values = data.test)
-
+plot(sort(prediction))
+lines(data.test$Age, col = "red", lwd = 5)
 compare_to_actual(prediction, data.test, 8, 8)
 ```
 
