@@ -19,10 +19,20 @@ library(ggplot2)
 data <- read.csv("./CrabAgePrediction.csv", TRUE)
 
 data <- data[,-6:-8]
-data <- data[order(data$Age),]
-data$Length[1:100]
+data.sorted <- data[order(data$Age),]
+data.shuffled <- data[sample(1:nrow(data)), ]
+# data$Length[1:100]
 plot(data, col="purple")
 plot(data$Height, col="purple")
+```
+
+```{r}
+# split data in 2 parts : one for building a linear model and one for testing
+data.train <- data.shuffled[1:2000,]
+data.test <- data.shuffled[2001:4000,]
+
+data.train[1:20,]
+data.test[1:20,]
 ```
 
 ```{r}
@@ -41,10 +51,6 @@ ggplot(data) +
 head(data)
 ```
 
-```{r}
-mydata <- read.csv("./CrabAgePrediction.csv", TRUE)
-summary(mydata)
-```
 **ANOVA** is an extension of a $t$-test. With a $t$-test you can test 2 groups.....тут треба описати що це таке ANOVA
 
 $F$-value:
@@ -54,33 +60,116 @@ If most of the variation comes from within groups, then 'some component' probabl
 Thus, larger $F$-ratios indicate there's a high probability that the groups do have different means; in other words, it does make a difference.
 High $f$-ratio combined with a small $p$-value means that 'some component' most likely does have an effect and we should reject the null hypothesis that the means are the same.
 
-
 ```{r}
 # all parameters
-fit <- aov(Age ~ Weight + Diameter + Sex + Length + Height, data=mydata)
+lm.all <- lm(Age ~ Weight + Diameter + Sex + Length + Height, data = data.train)
+fit <- aov(lm.all, data=data)
 summary(fit)
 ```
 Ну типу all attributes have large $f$-ratio combined with veery small $p$-values.
 
 ```{r}
 # without height
-fit <- aov(Age ~ Weight + Diameter + Sex + Length, data=mydata)
+lm.no_high <- lm(Age ~ Weight + Diameter + Sex + Length , data = data.train)
+fit <- aov(lm.no_high, data=data)
 summary(fit)
 ```
+
 ```{r}
 # without length
-fit <- aov(Age ~ Weight + Diameter + Sex + Height, data=mydata)
+lm.no_len <- lm(Age ~ Weight + Diameter + Sex + Height, data = data.train)
+fit <- aov(lm.no_len, data=data)
 summary(fit)
 ```
 
 ```{r}
 # without diameter
-fit <- aov(Age ~ Weight + Length + Sex + Height, data=mydata)
+lm.no_diameter <- lm(Age ~ Weight + Sex + Length + Height, data = data.train)
+fit <- aov(lm.no_diameter, data=data)
 summary(fit)
 ```
 
 ```{r}
 # without diameter and height
-fit <- aov(Age ~ Weight + Length + Sex, data=mydata)
+lm.no_diameter_height <- lm(Age ~ Weight + Sex + Length, data = data.train)
+fit <- aov(lm.no_diameter_height, data=data)
 summary(fit)
 ```
+
+now lets test our regression models on real data we reserved for testing and see how tragedic is the change if we take less arguments
+
+
+define function to calculate value based on our regression model coefficients
+```{r}
+calculate_value <- function(a, weight=0, diameter=0, sexi=0, sexm=0, length=0, height=0, values){
+  res = a + weight * values$Weight + diameter * values$Diameter + sexm * (values$Sex == "M")*1 + sexi * (values$Sex == "I")*1 + length * values$Length + height*values$Height 
+  return(res)
+}
+```
+
+```{r}
+compare_to_actual <- function(prediction, data, param1, param2){
+  prediction.bool <- prediction > param1
+  data.test.age.bool <- data$Age > param2
+  
+  res <- (prediction.bool == data.test.age.bool)
+  
+  sum <- 0
+  for(i in c(1:1893))
+    sum = sum + res[i]
+  return(sum / 1893)
+}
+```
+
+see how good is our model at predicting the crab age
+
+first, model with all parameters included
+```{r}
+lm.coefficients <- lm.all$coefficients
+
+prediction <- calculate_value(lm.coefficients[1], lm.coefficients[2], lm.coefficients[3], lm.coefficients[4], lm.coefficients[5], lm.coefficients[6], lm.coefficients[7], values = data.test)
+
+compare_to_actual(prediction, data.test, 8, 8)
+```
+now lets see on the other models
+
+*no height
+```{r}
+lm.coefficients <- lm.no_high$coefficients
+
+prediction <- calculate_value(a = lm.coefficients[1], weight = lm.coefficients[2], diameter = lm.coefficients[3], sexi = lm.coefficients[4], sexm = lm.coefficients[5], length = lm.coefficients[6], values = data.test)
+
+compare_to_actual(prediction, data.test, 8, 8)
+```
+we can see that the result became a little worse but is still ok
+so we can conclude that height is not that important of a parameter
+
+*no len
+```{r}
+lm.coefficients <- lm.no_high$coefficients
+
+prediction <- calculate_value(a = lm.coefficients[1], weight = lm.coefficients[2], diameter = lm.coefficients[3], sexi = lm.coefficients[4], sexm = lm.coefficients[5], height = lm.coefficients[6], values = data.test)
+
+compare_to_actual(prediction, data.test, 8, 8)
+```
+
+*no diameter
+```{r}
+lm.coefficients <- lm.no_diameter$coefficients
+
+prediction <- calculate_value(a = lm.coefficients[1], weight = lm.coefficients[2], sexi = lm.coefficients[3], sexm = lm.coefficients[4], length = lm.coefficients[5], height = lm.coefficients[6], values = data.test)
+
+compare_to_actual(prediction, data.test, 8, 8)
+```
+from this test we can see that probably diameter is not that important of parameter eather
+
+*no diameter and height
+```{r}
+lm.coefficients <- lm.no_diameter_height$coefficients
+
+prediction <- calculate_value(a = lm.coefficients[1], weight = lm.coefficients[2], sexi = lm.coefficients[3], sexm = lm.coefficients[4], length = lm.coefficients[5], values = data.test)
+
+compare_to_actual(prediction, data.test, 8, 8)
+```
+
+so we can sacrifise both diameter and height and focus on length, weight, and sex of the crab
