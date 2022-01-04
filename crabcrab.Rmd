@@ -40,3 +40,50 @@ ggplot(data) +
     theme_minimal()
 head(data)
 ```
+
+```{r}
+mydata <- read.csv("./CrabAgePrediction.csv", TRUE)
+summary(mydata)
+```
+```{r}
+weight <- aov(Age ~ Weight, data = mydata)
+summary(weight)
+```
+
+```{r}
+weight.lenght <- aov(Age ~ Weight + Length, data = mydata)
+
+summary(weight.lenght)
+```
+Adding **length**  to the model seems to have made the model better: it reduced the residual variance (the residual sum of squares went from 28655  to 27762), and both weight and length are statistically significant (p-values < 0.001).
+\\Let's add some more:
+```{r}
+all.parameters <- aov(Age ~ Weight + Diameter + Length + Sex + Height, data = mydata)
+
+summary(all.parameters)
+```
+Less squared sum of residual: 25487
+
+```{r}
+interaction <- aov(Age ~ Length*Diameter, data = mydata)
+
+summary(interaction)
+```
+The 'Length:Diameter' variable has a low sum-of-squares value and still quite low p-value, which means there is variation that can be explained by the interaction between Diameter and Length.
+-> можемо побачити, що diameter і length дуже сильно залежні між собою, тому можемо спробувати вибрати щось одне з них, і бачимо, що якщо забрати Length, то модель стане не набагато гіршою, але кількість залежностей зменшиться.
+
+
+```{r}
+all.without.length <- aov(Age ~ Weight + Diameter + Sex + Height, data = mydata)
+
+summary(all.without.length)
+```
+
+```{r}
+library(AICcmodavg)
+
+model.set <- list(weight.lenght, all.parameters, interaction, all.without.length)
+model.names <- c("weight.lenght", "all.parameters", "interaction", "all.without.length")
+
+aictab(model.set, modnames = model.names)
+```
