@@ -1,0 +1,704 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\title{Crab Research Project}
+\author{}
+\date{\vspace{-2.5em}}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Crab Research Project},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+\hypertarget{team}{%
+\subsubsection{Team:}\label{team}}
+
+\begin{itemize}
+\tightlist
+\item
+  Alina Muliak
+\item
+  Olexiy Hoiev
+\item
+  Oleksandra Stasiuk
+\end{itemize}
+
+\hypertarget{introduction}{%
+\subsubsection{Introduction}\label{introduction}}
+
+Crab farming is practiced worldwide as true crabs make up 20\% of all
+crustaceans caught and farmed in the world, with about 1.4 million
+tonnes being consumed annually. But there are some restrictions and
+challenges in profit based on when the crabs should be farmed. For a
+commercial crab farmer knowing the right age of the crab helps them
+decide if and when to harvest the crabs. Beyond a certain age, there is
+negligible growth in crab's physical characteristics and hence, it is
+important to time the harvesting to reduce cost and increase profit.
+
+\hypertarget{aim}{%
+\subsubsection{Aim}\label{aim}}
+
+The main purpose of this research is to provide farmers with information
+on age of the crabs based on their physical attributes, to help them
+decide on the most suitable time to harvest the crabs. Moreover, the
+goal is also to make this decision as easy and realistic as possible,
+relying on the minimum parameters getting accurate prediction.
+
+\hypertarget{analysis-of-the-data}{%
+\subsubsection{Analysis of the data}\label{analysis-of-the-data}}
+
+The main data set for the project consist of crab's physical
+characteristics, farmed in Boston area, that include sex, length,
+diameter, height, age, weight, shucked weight, viscera weight and shell
+weight.
+
+First, we download necessary library and set seed to easier work with
+results.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{125368}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+To prepare our data, as our goal is to help farmers harvest crabs, we
+leave out only those parameters, which farmers can estimate without
+killing the crabs: sex, length, diameter, height, weight and age.
+
+The graphs below show the dependence on every parameter in relation to
+others. This information helps us visually see which parameters will
+help to make an accurate prediction.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"./CrabAgePrediction.csv"}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{)}
+
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data[,}\SpecialCharTok{{-}}\DecValTok{6}\SpecialCharTok{:{-}}\DecValTok{8}\NormalTok{]}
+\NormalTok{data.sorted }\OtherTok{\textless{}{-}}\NormalTok{ data[}\FunctionTok{order}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Age),]}
+\NormalTok{data.shuffled }\OtherTok{\textless{}{-}}\NormalTok{ data[}\FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(data)), ]}
+\CommentTok{\# data$Length[1:100]}
+\FunctionTok{plot}\NormalTok{(data, }\AttributeTok{col=}\StringTok{"purple"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{crabcrab_files/figure-latex/unnamed-chunk-2-1.pdf} We
+can see that all the parameters' graphs shows strong relations, but on
+the height's graph there is almost no changes in dependence to others.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Height, }\AttributeTok{col=}\StringTok{"purple"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{crabcrab_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+To further prepare the data, we split it in 2 parts. First one we will
+need for building a linear regression model, and second will be for
+testing. As they are different, it will assure us of a better accuracy
+in our prediction.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data.train }\OtherTok{\textless{}{-}}\NormalTok{ data.shuffled[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2000}\NormalTok{,]}
+\NormalTok{data.train }\OtherTok{\textless{}{-}}\NormalTok{ data.train[}\FunctionTok{order}\NormalTok{(data.train}\SpecialCharTok{$}\NormalTok{Age),]}
+\NormalTok{data.test }\OtherTok{\textless{}{-}}\NormalTok{ data.shuffled[}\DecValTok{2001}\SpecialCharTok{:}\DecValTok{4000}\NormalTok{,]}
+\NormalTok{data.test }\OtherTok{\textless{}{-}}\NormalTok{ data.test[}\FunctionTok{order}\NormalTok{(data.test}\SpecialCharTok{$}\NormalTok{Age),]}
+
+\NormalTok{data.train[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{,]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Sex Length Diameter Height    Weight Age
+## 1352   M 0.5250   0.3750 0.1250 1.0914557   3
+## 2094   I 0.6000   0.4375 0.1625 1.8852418   3
+## 2845   I 0.5125   0.3875 0.1125 1.4033003   3
+## 754    I 0.2750   0.2250 0.0750 0.2267960   3
+## 1222   I 0.5375   0.3750 0.1375 1.1623295   3
+## 3456   I 0.4500   0.3250 0.1125 0.7796112   3
+## 2766   M 0.3875   0.2750 0.1000 0.4394172   3
+## 1169   I 0.4125   0.3000 0.1250 0.5953395   3
+## 308    I 0.3500   0.2625 0.0875 0.3968930   3
+## 1342   I 0.6000   0.4500 0.1375 1.5733972   4
+## 1133   M 0.6125   0.4500 0.1625 1.8001932   4
+## 929    I 0.5500   0.4000 0.1250 1.3891255   4
+## 2913   I 0.4250   0.2625 0.0875 0.9638830   4
+## 2639   M 0.5875   0.4000 0.1500 1.5450477   4
+## 948    I 0.5250   0.3750 0.1125 1.1339800   4
+## 3548   I 0.5625   0.4250 0.1750 1.6017467   4
+## 1233   I 0.6125   0.4750 0.1500 2.4380570   4
+## 1039   I 0.4625   0.3250 0.1125 0.8221355   4
+## 1124   I 0.4125   0.2875 0.0375 0.4110678   4
+## 2734   I 0.7875   0.5875 0.1875 3.6429107   4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data.test[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{20}\NormalTok{,]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Sex Length Diameter Height    Weight Age
+## 1331   I 0.1875   0.1375 0.0250 0.0566990   1
+## 1135   I 0.3750   0.2500 0.0625 0.4252425   2
+## 600    I 0.4875   0.3750 0.1125 1.0631062   3
+## 3444   I 0.4750   0.3500 0.0750 0.8930092   3
+## 2779   I 0.4000   0.2750 0.0625 0.5102910   3
+## 3729   I 0.3250   0.2500 0.0750 0.3685435   3
+## 2865   I 0.6125   0.4875 0.1500 2.6932025   4
+## 1943   I 0.6250   0.4500 0.1625 2.2821347   4
+## 1648   I 0.4000   0.2750 0.0625 0.5528152   4
+## 3672   I 0.4250   0.3250 0.2375 0.8504850   4
+## 956    I 0.3500   0.2625 0.0875 0.4110678   4
+## 1290   M 0.4875   0.3625 0.1250 0.9071840   4
+## 1593   I 0.5750   0.4125 0.1500 1.4599993   4
+## 1901   I 0.3375   0.3250 0.1000 0.8221355   4
+## 1808   I 0.5000   0.3625 0.1500 1.0489315   4
+## 697    I 0.5000   0.3625 0.1250 1.0205820   4
+## 1717   I 0.6375   0.4500 0.1375 2.3530085   4
+## 3063   I 0.6750   0.5125 0.1875 3.3452410   4
+## 3567   I 0.5625   0.4250 0.1250 1.4599993   4
+## 2300   M 0.8125   0.5750 0.2250 4.1673765   4
+\end{verbatim}
+
+The data set is not ideal, and in the parameter ``sex'' we have three
+categories - M stands for male, F - for female, and I - indeterminate.
+Below we build two graphs on parameters length and age in relation to
+different sexes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(data) }\SpecialCharTok{+}
+    \FunctionTok{geom\_density}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Length, }\AttributeTok{fill =}\NormalTok{ Sex), }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Density"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Length"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Crabs\textquotesingle{} Sex"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"M"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"I"}\NormalTok{),}
+        \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#DB24BC"}\NormalTok{, }\StringTok{"\#BCDB24"}\NormalTok{, }\StringTok{"\#24BCDB"}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{crabcrab_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(data) }\SpecialCharTok{+}
+    \FunctionTok{geom\_density}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Age, }\AttributeTok{fill =}\NormalTok{ Sex), }\AttributeTok{alpha =} \FloatTok{0.6}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Density"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Age"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"Crabs\textquotesingle{} Sex"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"M"}\NormalTok{, }\StringTok{"F"}\NormalTok{, }\StringTok{"I"}\NormalTok{),}
+        \AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#DB24BC"}\NormalTok{, }\StringTok{"\#BCDB24"}\NormalTok{, }\StringTok{"\#24BCDB"}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{crabcrab_files/figure-latex/unnamed-chunk-5-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Sex Length Diameter Height    Weight Age
+## 1   F 1.4375   1.1750 0.4125 24.635715   9
+## 2   M 0.8875   0.6500 0.2125  5.400580   6
+## 3   I 1.0375   0.7750 0.2500  7.952035   6
+## 4   F 1.1750   0.8875 0.2500 13.480187  10
+## 5   I 0.8875   0.6625 0.2125  6.903103   6
+## 6   F 1.5500   1.1625 0.3500 28.661344   8
+\end{verbatim}
+
+The female category is very different in both parameters from other two,
+but indeterminate is almost the same as male, which make us believe that
+farmers couldn't determine the sex of mainly male crabs.
+
+\hypertarget{anova-test}{%
+\subsubsection{ANOVA Test}\label{anova-test}}
+
+For building the prediction, we first need ANOVA test. \textbf{ANOVA},
+which stands for Analysis of Variance, is an extension of a \(t\)-test.
+It tells if there are any statistical differences between the means of
+three or more independent groups. Like the t-test, ANOVA helps to find
+out whether the differences between groups of data are statistically
+significant. It works by analyzing the levels of variance within the
+groups through samples taken from each of them.
+
+\(F\)-value:
+\[F = \frac{\text{Between group variatioin}}{\text{Within group variation}}\]
+If most of the variation comes from within groups, then `some component'
+probably does not have much of any effect, however, if the variation
+seems most to come from between the groups, this would indicate that
+`some component' does probably have an effect.
+
+Thus, larger \(F\)-ratios indicate there's a high probability that the
+groups do have different means; in other words, it does make a
+difference. High \(f\)-ratio combined with a small \(p\)-value means
+that `some component' most likely does have an effect and we should
+reject the null hypothesis that the means are the same.
+
+We build different linear regression models. As our goal is to minimize
+the use of parameters for farmers to decide easily, we compare linear
+model with all parameters and some without height, length and diameter.
+It will help us to see which one we can ignore while getting relatively
+accurate results.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  First one considers all the parameters we're have in prepared data
+  set.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm.all }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Age }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Weight }\SpecialCharTok{+}\NormalTok{ Diameter }\SpecialCharTok{+}\NormalTok{ Sex }\SpecialCharTok{+}\NormalTok{ Length }\SpecialCharTok{+}\NormalTok{ Height, }\AttributeTok{data =}\NormalTok{ data.train)}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(lm.all, }\AttributeTok{data=}\NormalTok{data)}
+\FunctionTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               Df Sum Sq Mean Sq F value   Pr(>F)    
+## Weight         1  11723   11723 1787.35  < 2e-16 ***
+## Diameter       1   1590    1590  242.39  < 2e-16 ***
+## Sex            2    780     390   59.45  < 2e-16 ***
+## Length         1    171     171   26.07 3.46e-07 ***
+## Height         1    627     627   95.63  < 2e-16 ***
+## Residuals   3886  25487       7                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+As we can see in the summary, all attributes have large \(f\)-ratio
+combined with very small \(p\)-values.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Second is now with all parameters except for height.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm.no\_high }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Age }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Weight }\SpecialCharTok{+}\NormalTok{ Diameter }\SpecialCharTok{+}\NormalTok{ Sex }\SpecialCharTok{+}\NormalTok{ Length , }\AttributeTok{data =}\NormalTok{ data.train)}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(lm.no\_high, }\AttributeTok{data=}\NormalTok{data)}
+\FunctionTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               Df Sum Sq Mean Sq F value   Pr(>F)    
+## Weight         1  11723   11723 1744.87  < 2e-16 ***
+## Diameter       1   1590    1590  236.63  < 2e-16 ***
+## Sex            2    780     390   58.04  < 2e-16 ***
+## Length         1    171     171   25.45 4.76e-07 ***
+## Residuals   3887  26115       7                     
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Without length.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm.no\_len }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Age }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Weight }\SpecialCharTok{+}\NormalTok{ Diameter }\SpecialCharTok{+}\NormalTok{ Sex }\SpecialCharTok{+}\NormalTok{ Height, }\AttributeTok{data =}\NormalTok{ data.train)}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(lm.no\_len, }\AttributeTok{data=}\NormalTok{data)}
+\FunctionTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               Df Sum Sq Mean Sq F value Pr(>F)    
+## Weight         1  11723   11723 1775.24 <2e-16 ***
+## Diameter       1   1590    1590  240.75 <2e-16 ***
+## Sex            2    780     390   59.05 <2e-16 ***
+## Height         1    618     618   93.56 <2e-16 ***
+## Residuals   3887  25668       7                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Without diameter.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm.no\_diameter }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Age }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Weight }\SpecialCharTok{+}\NormalTok{ Sex }\SpecialCharTok{+}\NormalTok{ Length }\SpecialCharTok{+}\NormalTok{ Height, }\AttributeTok{data =}\NormalTok{ data.train)}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(lm.no\_diameter, }\AttributeTok{data=}\NormalTok{data)}
+\FunctionTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               Df Sum Sq Mean Sq F value Pr(>F)    
+## Weight         1  11723   11723 1751.63 <2e-16 ***
+## Sex            2   1169     585   87.36 <2e-16 ***
+## Length         1    668     668   99.75 <2e-16 ***
+## Height         1    805     805  120.21 <2e-16 ***
+## Residuals   3887  26014       7                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Without diameter and height.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm.no\_diameter\_height }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Age }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Weight }\SpecialCharTok{+}\NormalTok{ Sex }\SpecialCharTok{+}\NormalTok{ Length, }\AttributeTok{data =}\NormalTok{ data.train)}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{aov}\NormalTok{(lm.no\_diameter\_height, }\AttributeTok{data=}\NormalTok{data)}
+\FunctionTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               Df Sum Sq Mean Sq F value Pr(>F)    
+## Weight         1  11723   11723 1699.52 <2e-16 ***
+## Sex            2   1169     585   84.76 <2e-16 ***
+## Length         1    668     668   96.78 <2e-16 ***
+## Residuals   3888  26818       7                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{testing-linear-models}{%
+\subsubsection{Testing linear models}\label{testing-linear-models}}
+
+Now we are going to test our regression models on real data, which we
+reserved for testing. With that we will see how great is the change if
+we ignore some of parameters, and which ones are more important.
+
+First, we make function to calculate values based on our regression
+model coefficients.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{calculate\_value }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(a, }\AttributeTok{weight=}\DecValTok{0}\NormalTok{, }\AttributeTok{diameter=}\DecValTok{0}\NormalTok{, }\AttributeTok{sexi=}\DecValTok{0}\NormalTok{, }\AttributeTok{sexm=}\DecValTok{0}\NormalTok{, }\AttributeTok{length=}\DecValTok{0}\NormalTok{, }\AttributeTok{height=}\DecValTok{0}\NormalTok{, values)\{}
+\NormalTok{  res }\OtherTok{=}\NormalTok{ a }\SpecialCharTok{+}\NormalTok{ weight }\SpecialCharTok{*}\NormalTok{ values}\SpecialCharTok{$}\NormalTok{Weight }\SpecialCharTok{+}\NormalTok{ diameter }\SpecialCharTok{*}\NormalTok{ values}\SpecialCharTok{$}\NormalTok{Diameter }\SpecialCharTok{+}\NormalTok{ sexm }\SpecialCharTok{*}\NormalTok{ (values}\SpecialCharTok{$}\NormalTok{Sex }\SpecialCharTok{==} \StringTok{"M"}\NormalTok{)}\SpecialCharTok{*}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ sexi }\SpecialCharTok{*}\NormalTok{ (values}\SpecialCharTok{$}\NormalTok{Sex }\SpecialCharTok{==} \StringTok{"I"}\NormalTok{)}\SpecialCharTok{*}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ length }\SpecialCharTok{*}\NormalTok{ values}\SpecialCharTok{$}\NormalTok{Length }\SpecialCharTok{+}\NormalTok{ height}\SpecialCharTok{*}\NormalTok{values}\SpecialCharTok{$}\NormalTok{Height }
+  \FunctionTok{return}\NormalTok{(res)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+And for comparing it to actual values.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{compare\_to\_actual }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(prediction, data, param1, param2)\{}
+\NormalTok{  prediction.bool }\OtherTok{\textless{}{-}}\NormalTok{ prediction }\SpecialCharTok{\textgreater{}}\NormalTok{ param1}
+\NormalTok{  data.test.age.bool }\OtherTok{\textless{}{-}}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{Age }\SpecialCharTok{\textgreater{}}\NormalTok{ param2}
+  
+\NormalTok{  res }\OtherTok{\textless{}{-}}\NormalTok{ (prediction.bool }\SpecialCharTok{==}\NormalTok{ data.test.age.bool)}
+  
+\NormalTok{  sum }\OtherTok{\textless{}{-}} \DecValTok{0}
+  \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{1893}\NormalTok{))}
+\NormalTok{    sum }\OtherTok{=}\NormalTok{ sum }\SpecialCharTok{+}\NormalTok{ res[i]}
+  \FunctionTok{return}\NormalTok{(sum }\SpecialCharTok{/} \DecValTok{1893}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Now we use them to see how good our linear regression model is with
+includiong different parameters.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  First, we test the model with all parameters included.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm.coefficients }\OtherTok{\textless{}{-}}\NormalTok{ lm.all}\SpecialCharTok{$}\NormalTok{coefficients}
+
+\NormalTok{prediction }\OtherTok{\textless{}{-}} \FunctionTok{calculate\_value}\NormalTok{(lm.coefficients[}\DecValTok{1}\NormalTok{], lm.coefficients[}\DecValTok{2}\NormalTok{], lm.coefficients[}\DecValTok{3}\NormalTok{], lm.coefficients[}\DecValTok{4}\NormalTok{], lm.coefficients[}\DecValTok{5}\NormalTok{], lm.coefficients[}\DecValTok{6}\NormalTok{], lm.coefficients[}\DecValTok{7}\NormalTok{], }\AttributeTok{values =}\NormalTok{ data.test)}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{sort}\NormalTok{(prediction))}
+\FunctionTok{lines}\NormalTok{(data.test}\SpecialCharTok{$}\NormalTok{Age, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{crabcrab_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{compare\_to\_actual}\NormalTok{(prediction, data.test, }\DecValTok{8}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8066561
+\end{verbatim}
+
+This is our base result that we will compare to others.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Test model without height parameter.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm.coefficients }\OtherTok{\textless{}{-}}\NormalTok{ lm.no\_high}\SpecialCharTok{$}\NormalTok{coefficients}
+
+\NormalTok{prediction }\OtherTok{\textless{}{-}} \FunctionTok{calculate\_value}\NormalTok{(}\AttributeTok{a =}\NormalTok{ lm.coefficients[}\DecValTok{1}\NormalTok{], }\AttributeTok{weight =}\NormalTok{ lm.coefficients[}\DecValTok{2}\NormalTok{], }\AttributeTok{diameter =}\NormalTok{ lm.coefficients[}\DecValTok{3}\NormalTok{], }\AttributeTok{sexi =}\NormalTok{ lm.coefficients[}\DecValTok{4}\NormalTok{], }\AttributeTok{sexm =}\NormalTok{ lm.coefficients[}\DecValTok{5}\NormalTok{], }\AttributeTok{length =}\NormalTok{ lm.coefficients[}\DecValTok{6}\NormalTok{], }\AttributeTok{values =}\NormalTok{ data.test)}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{sort}\NormalTok{(prediction))}
+\FunctionTok{lines}\NormalTok{(data.test}\SpecialCharTok{$}\NormalTok{Age, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{crabcrab_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{compare\_to\_actual}\NormalTok{(prediction, data.test, }\DecValTok{8}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8082409
+\end{verbatim}
+
+Here we can see that the result became a little worse but is still
+precise, in comparison to our base model. It is also seen on the
+prediction graph. Therefore, we can conclude that height is not that
+important and can be ignored by farmers.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Test model without length parameter.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm.coefficients }\OtherTok{\textless{}{-}}\NormalTok{ lm.no\_high}\SpecialCharTok{$}\NormalTok{coefficients}
+
+\NormalTok{prediction }\OtherTok{\textless{}{-}} \FunctionTok{calculate\_value}\NormalTok{(}\AttributeTok{a =}\NormalTok{ lm.coefficients[}\DecValTok{1}\NormalTok{], }\AttributeTok{weight =}\NormalTok{ lm.coefficients[}\DecValTok{2}\NormalTok{], }\AttributeTok{diameter =}\NormalTok{ lm.coefficients[}\DecValTok{3}\NormalTok{], }\AttributeTok{sexi =}\NormalTok{ lm.coefficients[}\DecValTok{4}\NormalTok{], }\AttributeTok{sexm =}\NormalTok{ lm.coefficients[}\DecValTok{5}\NormalTok{], }\AttributeTok{height =}\NormalTok{ lm.coefficients[}\DecValTok{6}\NormalTok{], }\AttributeTok{values =}\NormalTok{ data.test)}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{sort}\NormalTok{(prediction))}
+\FunctionTok{lines}\NormalTok{(data.test}\SpecialCharTok{$}\NormalTok{Age, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{crabcrab_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{compare\_to\_actual}\NormalTok{(prediction, data.test, }\DecValTok{8}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7152668
+\end{verbatim}
+
+Without length, our results became much worse, the value is different
+and graphs are further from each other in predicted and actual values.
+Therefore, we don't want to get rid of this parameter to get accurate
+results.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Test model without diameter parameter.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm.coefficients }\OtherTok{\textless{}{-}}\NormalTok{ lm.no\_diameter}\SpecialCharTok{$}\NormalTok{coefficients}
+
+\NormalTok{prediction }\OtherTok{\textless{}{-}} \FunctionTok{calculate\_value}\NormalTok{(}\AttributeTok{a =}\NormalTok{ lm.coefficients[}\DecValTok{1}\NormalTok{], }\AttributeTok{weight =}\NormalTok{ lm.coefficients[}\DecValTok{2}\NormalTok{], }\AttributeTok{sexi =}\NormalTok{ lm.coefficients[}\DecValTok{3}\NormalTok{], }\AttributeTok{sexm =}\NormalTok{ lm.coefficients[}\DecValTok{4}\NormalTok{], }\AttributeTok{length =}\NormalTok{ lm.coefficients[}\DecValTok{5}\NormalTok{], }\AttributeTok{height =}\NormalTok{ lm.coefficients[}\DecValTok{6}\NormalTok{], }\AttributeTok{values =}\NormalTok{ data.test)}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{sort}\NormalTok{(prediction))}
+\FunctionTok{lines}\NormalTok{(data.test}\SpecialCharTok{$}\NormalTok{Age, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{crabcrab_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{compare\_to\_actual}\NormalTok{(prediction, data.test, }\DecValTok{8}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8092974
+\end{verbatim}
+
+From this test we can see that probably diameter is not that important
+either, as the prediction does not changes strongly, so we can ignore
+it.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Test model without diameter and height parameters.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm.coefficients }\OtherTok{\textless{}{-}}\NormalTok{ lm.no\_diameter\_height}\SpecialCharTok{$}\NormalTok{coefficients}
+
+\NormalTok{prediction }\OtherTok{\textless{}{-}} \FunctionTok{calculate\_value}\NormalTok{(}\AttributeTok{a =}\NormalTok{ lm.coefficients[}\DecValTok{1}\NormalTok{], }\AttributeTok{weight =}\NormalTok{ lm.coefficients[}\DecValTok{2}\NormalTok{], }\AttributeTok{sexi =}\NormalTok{ lm.coefficients[}\DecValTok{3}\NormalTok{], }\AttributeTok{sexm =}\NormalTok{ lm.coefficients[}\DecValTok{4}\NormalTok{], }\AttributeTok{length =}\NormalTok{ lm.coefficients[}\DecValTok{5}\NormalTok{], }\AttributeTok{values =}\NormalTok{ data.test)}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{sort}\NormalTok{(prediction))}
+\FunctionTok{lines}\NormalTok{(data.test}\SpecialCharTok{$}\NormalTok{Age, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{crabcrab_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{compare\_to\_actual}\NormalTok{(prediction, data.test, }\DecValTok{8}\NormalTok{, }\DecValTok{8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8087691
+\end{verbatim}
+
+Finally, the last test we run on model without diameter and height, and
+we can conclude that they are not very important parameters to consider
+in harvesting crabs.
+
+\hypertarget{conclusion}{%
+\subsubsection{Conclusion}\label{conclusion}}
+
+In this research we built and tested our linear regression models on
+different sets of data. We discovered that for harvesting crabs
+effectively farmers need to consider many of their physical attributes,
+but to minimize the effort they can neglect the diameter and height and
+focus on parameters which are more important in predicting their age -
+length, weight, and sex of the crab.
+
+\end{document}
