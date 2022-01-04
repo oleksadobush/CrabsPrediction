@@ -51,6 +51,9 @@ ggplot(data) +
 head(data)
 ```
 
+
+
+
 **ANOVA** is an extension of a $t$-test. With a $t$-test you can test 2 groups.....тут треба описати що це таке ANOVA
 
 $F$-value:
