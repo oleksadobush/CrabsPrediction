@@ -45,10 +45,14 @@ head(data)
 mydata <- read.csv("./CrabAgePrediction.csv", TRUE)
 summary(mydata)
 ```
+The good measure to test how good is our model is the **coefficient of determination** $R^2$. This measure is defined by the proportion of the total variability explained by the regression model.
+$$R^2 = \frac{\text{Explained variation of the model}}{\text{Total variation of the model}}$$
+We know, that for models that fit the data well, $R^2$ is near $1$ and conversely, models that poorly fit the data have $R^2$ near $0$.
 ```{r}
-weight <- aov(Age ~ Weight, data = mydata)
-summary(weight)
+height <- lm(Age ~ Height, data = mydata)
+summary(height)
 ```
+Here we can see that this model has an $R^2$ of $0.3$; this means that the model explains only $30\%$ of the data variability, which is not the desired and satisfactory result for us. So, probably `Height` does not tell much about crab's age.
 
 ```{r}
 weight.lenght <- aov(Age ~ Weight + Length, data = mydata)
