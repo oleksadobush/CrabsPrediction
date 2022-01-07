@@ -1,1 +1,205 @@
-# CrabsPrediction
+### Team:
+- Alina Muliak
+- Olexiy Hoiev
+- Oleksandra Stasiuk
+
+### Introduction
+Crab farming is practiced worldwide as true crabs make up 20% of all crustaceans caught and farmed in the world, with about 1.4 million tonnes being consumed annually. But there are some restrictions and challenges in profit based on when the crabs should be farmed. For a commercial crab farmer knowing the right age of the crab helps them decide if and when to harvest the crabs. Beyond a certain age, there is negligible growth in crab's physical characteristics and hence, it is important to time the harvesting to reduce cost and increase profit.
+
+### Aim
+The main purpose of this research is to provide farmers with information on age of the crabs based on their physical attributes, to help them decide on the most suitable time to harvest the crabs. Moreover, the goal is also to make this decision as easy and realistic as possible, relying on the minimum parameters getting accurate prediction.
+
+### Analysis of the data
+The main data set for the project consist of crab's physical characteristics, farmed in Boston area, that include sex, length, diameter, height, age, weight, shucked weight, viscera weight and shell weight.
+
+First, we download necessary library and set seed to easier work with results.
+```{r}
+library(ggplot2)
+set.seed(125368)
+```
+
+To prepare our data, as our goal is to help farmers harvest crabs, we leave out only those parameters, which farmers can estimate without killing the crabs: sex, length, diameter, height, weight and age.
+
+The graphs below show the dependence on every parameter in relation to others. This information helps us visually see which parameters will help to make an accurate prediction. 
+```{r}
+data <- read.csv("./CrabAgePrediction.csv", TRUE)
+
+data <- data[,-6:-8]
+data.sorted <- data[order(data$Age),]
+data.shuffled <- data[sample(1:nrow(data)), ]
+# data$Length[1:100]
+plot(data, col="purple")
+```
+We can see that all the parameters' graphs shows strong relations, but on the height's graph there is almost no changes in dependence to others.
+```{r}
+plot(data$Height, col="purple")
+```
+
+To further prepare the data, we split it in 2 parts. First one we will need for building a linear regression model, and second will be for testing. As they are different, it will assure us of a better accuracy in our prediction.
+
+```{r}
+data.train <- data.shuffled[1:2000,]
+data.train <- data.train[order(data.train$Age),]
+data.test <- data.shuffled[2001:4000,]
+data.test <- data.test[order(data.test$Age),]
+
+data.train[1:20,]
+data.test[1:20,]
+```
+
+The data set is not ideal, and in the parameter "sex" we have three categories - M stands for male, F - for female, and I - indeterminate. 
+Below we build two graphs on parameters length and age in relation to different sexes.
+```{r}
+ggplot(data) +
+    geom_density(aes(x = Length, fill = Sex), alpha = 0.5) +
+    labs(y = "Density", x = "Length", fill = "Crabs' Sex") +
+    scale_fill_manual(labels = c("M", "F", "I"),
+        values = c("#DB24BC", "#BCDB24", "#24BCDB")) +
+    theme_minimal()
+ggplot(data) +
+    geom_density(aes(x = Age, fill = Sex), alpha = 0.6) +
+    labs(y = "Density", x = "Age", fill = "Crabs' Sex") +
+    scale_fill_manual(labels = c("M", "F", "I"),
+        values = c("#DB24BC", "#BCDB24", "#24BCDB")) +
+    theme_minimal()
+head(data)
+```
+The female category is very different in both parameters from other two, but indeterminate is almost the same as male, which make us believe that farmers couldn't determine the sex of mainly male crabs.
+
+### ANOVA Test
+For building the prediction, we first need ANOVA test.
+**ANOVA**, which stands for Analysis of Variance, is an extension of a t-test. It tells if there are any statistical differences between the means of three or more independent groups. Like the t-test, ANOVA helps to find out whether the differences between groups of data are statistically significant. It works by analyzing the levels of variance within the groups through samples taken from each of them.
+
+F-value:
+F = Between group variatioin/Within group variation
+If most of the variation comes from within groups, then 'some component' probably does not have much of any effect, however, if the variation seems most to come from between the groups, this would indicate that 'some component' does probably have an effect.
+
+Thus, larger F-ratios indicate there's a high probability that the groups do have different means; in other words, it does make a difference.
+High f-ratio combined with a small p-value means that 'some component' most likely does have an effect and we should reject the null hypothesis that the means are the same.
+
+We build different linear regression models. As our goal is to minimize the use of parameters for farmers to decide easily, we compare linear model with all parameters and some without height, length and diameter. It will help us to see which one we can ignore while getting relatively accurate results.
+
+1. First one considers all the parameters we're have in prepared data set.
+```{r}
+lm.all <- lm(Age ~ Weight + Diameter + Sex + Length + Height, data = data.train)
+fit <- aov(lm.all, data=data)
+summary(fit)
+```
+As we can see in the summary, all attributes have large f-ratio combined with very small p-values.
+
+2. Second is now with all parameters except for height.
+```{r}
+lm.no_high <- lm(Age ~ Weight + Diameter + Sex + Length , data = data.train)
+fit <- aov(lm.no_high, data=data)
+summary(fit)
+```
+
+3. Without length.
+```{r}
+lm.no_len <- lm(Age ~ Weight + Diameter + Sex + Height, data = data.train)
+fit <- aov(lm.no_len, data=data)
+summary(fit)
+```
+
+4. Without diameter.
+```{r}
+lm.no_diameter <- lm(Age ~ Weight + Sex + Length + Height, data = data.train)
+fit <- aov(lm.no_diameter, data=data)
+summary(fit)
+```
+
+5. Without diameter and height.
+```{r}
+lm.no_diameter_height <- lm(Age ~ Weight + Sex + Length, data = data.train)
+fit <- aov(lm.no_diameter_height, data=data)
+summary(fit)
+```
+
+### Testing linear models
+Now we are going to test our regression models on real data, which we reserved for testing. With that we will see how great is the change if we ignore some of parameters, and which ones are more important.
+
+
+First, we make function to calculate values based on our regression model coefficients.
+```{r}
+calculate_value <- function(a, weight=0, diameter=0, sexi=0, sexm=0, length=0, height=0, values){
+  res = a + weight * values$Weight + diameter * values$Diameter + sexm * (values$Sex == "M")*1 + sexi * (values$Sex == "I")*1 + length * values$Length + height*values$Height 
+  return(res)
+}
+```
+
+And for comparing it to actual values.
+```{r}
+compare_to_actual <- function(prediction, data, param1, param2){
+  prediction.bool <- prediction > param1
+  data.test.age.bool <- data$Age > param2
+  
+  res <- (prediction.bool == data.test.age.bool)
+  
+  sum <- 0
+  for(i in c(1:1893))
+    sum = sum + res[i]
+  return(sum / 1893)
+}
+```
+
+Now we use them to see how good our linear regression model is with includiong different parameters.
+
+1. First, we test the model with all parameters included.
+```{r}
+lm.coefficients <- lm.all$coefficients
+
+prediction <- calculate_value(lm.coefficients[1], lm.coefficients[2], lm.coefficients[3], lm.coefficients[4], lm.coefficients[5], lm.coefficients[6], lm.coefficients[7], values = data.test)
+plot(sort(prediction))
+lines(data.test$Age, col = "red", lwd = 5)
+compare_to_actual(prediction, data.test, 8, 8)
+```
+This is our base result that we will compare to others.
+
+2. Test model without height parameter.
+```{r}
+lm.coefficients <- lm.no_high$coefficients
+
+prediction <- calculate_value(a = lm.coefficients[1], weight = lm.coefficients[2], diameter = lm.coefficients[3], sexi = lm.coefficients[4], sexm = lm.coefficients[5], length = lm.coefficients[6], values = data.test)
+plot(sort(prediction))
+lines(data.test$Age, col = "red", lwd = 5)
+compare_to_actual(prediction, data.test, 8, 8)
+```
+Here we can see that the result became a little worse but is still precise, in comparison to our base model. It is also seen on the prediction graph. Therefore, we can conclude that height is not that important and can be ignored by farmers.
+
+3. Test model without length parameter.
+```{r}
+lm.coefficients <- lm.no_high$coefficients
+
+prediction <- calculate_value(a = lm.coefficients[1], weight = lm.coefficients[2], diameter = lm.coefficients[3], sexi = lm.coefficients[4], sexm = lm.coefficients[5], height = lm.coefficients[6], values = data.test)
+plot(sort(prediction))
+lines(data.test$Age, col = "red", lwd = 5)
+compare_to_actual(prediction, data.test, 8, 8)
+```
+Without length, our results became much worse, the value is different and graphs are further from each other in predicted and actual values. Therefore, we don't want to get rid of this parameter to get accurate results.
+
+4. Test model without diameter parameter.
+```{r}
+lm.coefficients <- lm.no_diameter$coefficients
+
+prediction <- calculate_value(a = lm.coefficients[1], weight = lm.coefficients[2], sexi = lm.coefficients[3], sexm = lm.coefficients[4], length = lm.coefficients[5], height = lm.coefficients[6], values = data.test)
+plot(sort(prediction))
+lines(data.test$Age, col = "red", lwd = 5)
+compare_to_actual(prediction, data.test, 8, 8)
+```
+From this test we can see that probably diameter is not that important either, as the prediction does not changes strongly, so we can ignore it.
+
+5. Test model without diameter and height parameters.
+```{r}
+lm.coefficients <- lm.no_diameter_height$coefficients
+
+prediction <- calculate_value(a = lm.coefficients[1], weight = lm.coefficients[2], sexi = lm.coefficients[3], sexm = lm.coefficients[4], length = lm.coefficients[5], values = data.test)
+plot(sort(prediction))
+lines(data.test$Age, col = "red", lwd = 5)
+compare_to_actual(prediction, data.test, 8, 8)
+```
+Finally, the last test we run on model without diameter and height, and we can conclude that they are not very important parameters to consider in harvesting crabs.
+
+
+### Conclusion
+
+In this research we built and tested our linear regression models on different sets of data. We discovered that for harvesting crabs effectively farmers need to consider many of their physical attributes, but to minimize the effort they can neglect the diameter and height and focus on parameters which are more important in predicting their age - length, weight, and sex of the crab.
