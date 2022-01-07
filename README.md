@@ -13,13 +13,7 @@ The main purpose of this research is to provide farmers with information on age 
 
 ### Analysis of the data
 The main data set for the project consist of crab's physical characteristics, farmed in Boston area, that include sex, length, diameter, height, age, weight, shucked weight, viscera weight and shell weight.
-
-First, we download necessary library and set seed to easier work with results.
-```{r}
-library(ggplot2)
-set.seed(125368)
-```
-
+</br>
 To prepare our data, as our goal is to help farmers harvest crabs, we leave out only those parameters, which farmers can estimate without killing the crabs: sex, length, diameter, height, weight and age.</br>
 All the parameters' graphs shows strong relations, but on the height's graph there is almost no changes in dependence to others.
 </br>
